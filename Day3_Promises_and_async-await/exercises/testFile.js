@@ -12,8 +12,8 @@ normalVersion(1)
 */
 
 try {
-  asyncVersion(1)
-  .then(result => console.log(result))
+  const result = await asyncVersion(1)
+  console.log(result)
 } catch (error) {
   console.log(err)
 }
