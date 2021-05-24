@@ -10,10 +10,14 @@ normalVersion(1)
   .then(result => console.log(result))
   .catch(err => console.log(err))
 */
-/*
-asyncVersion(1)
+
+try {
+  asyncVersion(1)
   .then(result => console.log(result))
-*/
+} catch (error) {
+  console.log(err)
+}
+
 const [serial, parallel] = require('./serialAndParallel');
 /*
 serial();
