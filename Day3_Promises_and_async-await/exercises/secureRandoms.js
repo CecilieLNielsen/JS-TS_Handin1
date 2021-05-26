@@ -14,25 +14,30 @@ const secureRandoms = (arr) => new Promise((resolve, reject) => {
   if (arr.length <= 0) {
     reject(new Error('Invalid Array - No elements found!'))
   }
-  const promises = []
-  arr.map((integer) => {
+
+  const promises = arr.map((integer) => {
     if (isNaN(integer)) {
       reject(new Error('Invalid Array Element - Element is not a number!'))
     }
     if (integer <= 0) {
       reject(new Error('Invalid Array Element - Element is zero or negative!'))
     }
-    promises.push(makeSecureRandom(integer))
+    return makeSecureRandom(integer)
   })
-  const title = arr.length + ' Secure Randoms';
-  const result = {
-    title,
-    randoms: []
-  }
+    
   Promise.all(promises)
-    .then(results => result.randoms = [...results])
-    .then(() => resolve(result))
+    .then((results) => {
+      const result = {
+        title: arr.length + ' Secure Randoms',
+        randoms: results
+      }
+      resolve(result)
+    })
     .catch(err => reject(err));
 });
+
+secureRandoms([64, 56, 48, 40, 32, 24, 16, 8])
+  .then(result => console.log(result))
+  .catch(err => console.log(err));
 
 module.exports = secureRandoms;
